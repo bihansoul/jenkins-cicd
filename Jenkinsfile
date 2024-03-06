@@ -6,5 +6,12 @@ pipeline {
               git 'https://github.com/bihansoul/jenkins-cicd.git'
           }
         }
+	  stage('Build') { 
+            steps { 
+                script{
+                 app = docker.build("imagecicd")
+                }
+            }
+        }
     }
 }
