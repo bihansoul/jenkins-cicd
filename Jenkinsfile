@@ -1,4 +1,9 @@
 pipeline {
+	environment {
+	registry = "bihansoul/jenkins-cicd"
+	registryCredential = 'dockerhub_username_password'
+	dockerImage = ''
+	}
    agent any
    stages {
       stage('clone') {
@@ -9,14 +14,14 @@ pipeline {
 	  stage('build') { 
             steps { 
                 script{
-                 app = docker.build("bihansoul/jenkins-cicd")
+				 dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
       }
 	  stage('push') { 
             steps { 
 				script{
-                 docker.withRegistry( '', 'dockerhub_access_token' )
+                 docker.withRegistry( '', registryCredential )
 				 dockerImage.push()
                 }
             }
