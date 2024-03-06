@@ -9,7 +9,7 @@ pipeline {
 	  stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("imagecicd")
+                 app = docker.build("jenkins-cicd-image")
                 }
             }
         }
