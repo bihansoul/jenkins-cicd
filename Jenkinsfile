@@ -6,12 +6,20 @@ pipeline {
               git 'https://github.com/bihansoul/jenkins-cicd.git'
           }
         }
-	  stage('Build') { 
+	  stage('build') { 
             steps { 
                 script{
-                 app = docker.build("jenkins-cicd-image")
+                 app = docker.build("bihansoul/jenkins-cicd")
                 }
             }
-        }
+      }
+	  stage('display') { 
+            steps { 
+                 wrap([$class: 'BuildUser']) {
+					sh 'echo "${BUILD_USER}"'
+				}
+            }
+      }
+	  
     }
 }
