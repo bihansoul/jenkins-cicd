@@ -21,7 +21,7 @@ pipeline {
 	  stage('push') { 
             steps { 
 				script{
-						docker.withRegistry('https://hub.docker.com/repository/docker/bihansoul/jenkins-cicd/general', registryCredential) {
+						docker.withRegistry('', registryCredential) {
 						dockerImage.push()
 					}
                 }
