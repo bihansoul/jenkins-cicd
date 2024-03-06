@@ -14,15 +14,16 @@ pipeline {
 	  stage('build') { 
             steps { 
                 script{
-				 dockerImage = docker.build registry + ":$BUILD_NUMBER"
+						dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
       }
 	  stage('push') { 
             steps { 
 				script{
-                 docker.withRegistry( '', registryCredential )
-				 dockerImage.push()
+						docker.withRegistry('https://hub.docker.com/repository/docker/bihansoul/jenkins-cicd/general', registryCredential) {
+						dockerImage.push()
+					}
                 }
             }
       }
