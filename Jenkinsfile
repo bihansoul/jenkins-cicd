@@ -15,8 +15,10 @@ pipeline {
       }
 	  stage('push') { 
             steps { 
+				script{
                  docker.withRegistry( '', 'dockerhub_access_token' )
 				 dockerImage.push()
+                }
             }
       }
 	  stage('display') { 
