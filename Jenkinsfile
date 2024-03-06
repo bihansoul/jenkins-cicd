@@ -9,8 +9,14 @@ pipeline {
 	  stage('build') { 
             steps { 
                 script{
-                 dockerImage = docker.build("bihansoul/jenkins-cicd:$BUILD_NUMBER")
+                 app = docker.build("bihansoul/jenkins-cicd")
                 }
+            }
+      }
+	  stage('push') { 
+            steps { 
+                 docker.withRegistry( '', 'dockerhub_access_token' )
+				 dockerImage.push()
             }
       }
 	  stage('display') { 
@@ -18,12 +24,6 @@ pipeline {
                  wrap([$class: 'BuildUser']) {
 					sh 'echo "${BUILD_USER}"'
 				}
-            }
-      }
-	  stage('display') { 
-            steps { 
-                 docker.withRegistry( '', 'dockerhub_access_token' ) {
-				 dockerImage.push()
             }
       }
 	  
