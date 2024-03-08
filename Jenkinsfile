@@ -34,6 +34,14 @@ pipeline {
 				}
             }
       }
+	  stage('Deploy') {
+			steps {
+				script {
+					input message: 'Xác nhận triển khai?',
+					submitter: 'user'
+				}
+		  }
+	  }
 	  
     }
 }
